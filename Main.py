@@ -46,7 +46,11 @@ def saveDetails():
 			Details.append(Allrow[k])
 		CompleteDet.append(Details)
 	print(CompleteDet)
-	return render_template("viewTable.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename) 
+	if(tablename=="Steps_Table"):
+		return render_template("viewTable.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename) 
+	else:
+		return render_template("viewTable02.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename)
+
 
 
 # @app.route("/view02")  
