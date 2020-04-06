@@ -1,0 +1,30 @@
+{# templates/admin.html #}
+<html>
+    <head>
+        <title>Feedback01 logging</title>
+
+        {# Import JQuery #}
+        <meta charset="utf-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<div style="margin-top: 65px; text-align: left;padding-left: 100px;">
+
+	<h4 style="margin-top: 65px; text-align: left;padding-left: 100px;"> Feedback present</h4>
+
+
+        {# Show submitted data #}
+        {% if data is defined %}
+            <p>Received data: {{ data }}</p>
+        {% endif %}
+
+
+        {# Show Feedback #}
+        {% for step02 in Feedback %}
+            <p><a href="{{ url_for('show_step02', Feedback_id=step02.id) }}">Feedback {{ step02.id }}</a></p>
+        {% endfor %}
+

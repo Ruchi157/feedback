@@ -115,7 +115,7 @@
             }
         </style>
     </head>
-    <body style="background-color:lightblue ; text-align: center">  
+    <body style="background-color:lightblue">  
   
 <nav class="navbar navbar-expand-sm bg-light navbar-light" style="margin-top: 50px;">
   <!-- Brand/logo -->
@@ -128,28 +128,87 @@
 
 </nav>
        
-<div class="container" style="background-color:white ;margin-left:auto;margin-right:auto;  margin-top: 100px;width:400px; border-radius: 50px" > 
+<h4 style="margin-top: 65px; text-align: left;padding-left: 100px; text-align: center;"> Feedback Form</h4>
+
+<div class="container" style="background-color:white ;margin-left:auto;margin-right:auto;  margin-top: 50px;width:970px; border-radius: 50px" > 
         {# Show all subforms #}
         <form id="feedback01-form" action="" method="POST" role="form">
             {{ form.hidden_tag() }}
 
+            <div class="form-check-inline">
+      			<label class="control-label col-sm-2" for="name" style="padding-top:15px"> Full Name:</label>
+      			<div class="col-sm-5">
+        			<input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" required>
+      			</div>
+
+      			<label class="control-label col-sm-3" for="olmid" style="padding-top:15px">OLM ID:</label>
+      			<div class="col-sm-6">
+        			<input type="text" class="form-control" id="olmid" placeholder="Enter OLM ID:" name="olmid" required>
+      			</div>
+
+
+    		</div>
+
+    		<br>
+    		<br>
+
+
+    		<div class="form-check-inline">
+      			<label class="control-label col-sm-2" for="team_name" style="padding-top:15px">Team Name:</label>
+      			<div class="col-sm-5">
+        			<input type="text" class="form-control" id="team_name" placeholder="Enter Team Name" name="team_name" required>
+      			</div>
+
+      			<label class="control-label col-sm-3" for="manager" style="padding-top:15px">Manager:</label>
+      			<div class="col-sm-6">
+        			<input type="text" class="form-control" id="manager" placeholder="Enter manager" name="manager" required>
+      			</div>
+    		</div>
+
+<br>
+    		<br>
+    		
+
+    		<div class="form-group">
+      			<label class="control-label col-sm-10" for="activity_name" style="padding-top:15px">Activity Name:</label>
+      			<div class="col-sm-10">
+        			<input type="text" class="form-control" id="activity_name" placeholder="Enter Activity name" name="activity_name" required>
+      			</div>
+    		</div>    		
+
+
+
+         	<div class="form-group">
             <div id="subforms-container">
+
                 {% for subform in form.step01 %}
                     <div id="feedback01-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
-                        {{ subform.STEPS.label }}
+                   	<label class="control-label col-sm-10" for="remarks" style="padding-top:15px">{{ subform.STEPS.label }}</label>
+      			<div class="col-sm-12">
+
                         {{ subform.STEPS }}
 
-                        <a class="remove" href="#"  style="border: 2px solid red;">Remove</a>
                          <a id="add" href="#" style="border: 2px solid red;">Add Steps</a>
                     </div>
                 {% endfor %}
             </div>
+        </div>
+    </div>
 
-            <!-- <button type="submit">Submit</button>
- -->
+    		<div class="form-group">
+     		<div class="form-check-inline">
+      			<label class="control-label col-sm-3" for="remarks" style="padding-top:15px">remarks:</label>
+      			<div class="col-sm-12">
+        			<input type="text" class="form-control" id="remarks" placeholder="Enter remarks" name="remarks" required>
+      			</div>
+    		</div> 
+    	</div>
+    		
 	<div class="text-center"> 
           <button type="submit" class="btn btn-default float" style="border: 2px solid red;">Submit</button>  
     </div>
+
+		<H3  style="margin-top: 10px; text-align: left;padding-left: 100px; text-align: center;"> {{ MSG }}</H3>
 
         </form>
 
@@ -158,32 +217,19 @@
         {% endif %}
 
         {# Form template #}
+        <div class="form-group">
         <div id="feedback01-_-form" class="is-hidden" data-index="_">
-            <label for="step01-_-STEPS">New Steps</label>
-            <input id="step01-_-STEPS" name="step01-_-STEPS" type="text" value="">
+            <label for="step01-_-STEPS" class="control-label col-sm-10" for="remarks" style="padding-top:15px">New Step</label>
+            <div class="col-sm-10">
+            <input id="step01-_-STEPS" class="form-control"  placeholder="Enter New step"name="step01-_-STEPS" type="text" value="">
             <a class="remove" href="#">Remove</a>
+        </div>
+    </div>
         </div>
 
 </div>
 
 
-<div style="margin-top: 65px; text-align: left;padding-left: 100px;">
-
-	<h4 style="margin-top: 65px; text-align: left;padding-left: 100px;"> Feedback present</h4>
-
-
-        {# Show submitted data #}
-        {% if data is defined %}
-            <p>Received data: {{ data }}</p>
-        {% endif %}
-
-
-        {# Show Feedback #}
-        {% for step02 in Feedback %}
-            <p><a href="{{ url_for('show_step02', Feedback_id=step02.id) }}">Feedback {{ step02.id }}</a></p>
-        {% endfor %}
-
-</div>
 
     </body>
 </html>
