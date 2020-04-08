@@ -48,7 +48,7 @@ def saveDetails():
 			CompleteDet.append(Details)
 		print(CompleteDet)
 		
-		return render_template("viewTable.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename)
+		
 	else:
 		column=[]
 		cur.execute("SELECT Feedback_id,steps,name,olmid,manager,team_name,activity_name,remarks FROM Steps_Table LEFT OUTER JOIN Feedback ON Steps_Table.Feedback_id = Feedback.id")
@@ -56,8 +56,18 @@ def saveDetails():
 		colnames = cur.description
 		for Allcolumns in colnames:
 			column.append(Allcolumns[0])
-		return render_template("viewTable03.html",column=column,rows=rows)
 
+		columnlength=len(column)
+		
+		CompleteDet=[]
+		for Allrow in rows:
+			Details=[]
+			for k in range(0,columnlength):
+				Details.append(Allrow[k])
+			CompleteDet.append(Details)
+		print(CompleteDet)
+
+		return render_template("viewTable.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename)
 
 
 # @app.route("/view02")  
