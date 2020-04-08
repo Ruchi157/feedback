@@ -11,11 +11,19 @@
   		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10/jquery.min.js"></script>
+ 		<script type="text/javascript" src="previewForm / previewForm.js"></script>
+ 		<link rel="stylesheet" type="text/css" href="previewForm/previewForm.css" />
         <script>
             /**
              * Adjust the indices of form fields when removing items.
              */
+
+
+			$(document).ready(function() {
+				$('#myform').previewForm({ show_password : false });
+			});
+
             function adjustIndices(removedIndex) {
                 var $forms = $('.subform');
 
@@ -207,6 +215,8 @@
 	<div class="text-center"> 
           <button type="submit" class="btn btn-default float" style="border: 2px solid red;">Submit</button>  
     </div>
+
+</script>
 
 		<H3  style="margin-top: 10px; text-align: left;padding-left: 100px; text-align: center;"> {{ MSG }}</H3>
 

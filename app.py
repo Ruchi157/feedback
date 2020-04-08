@@ -66,7 +66,7 @@ class Feedback01(db.Model):
 # Initialize app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'sosecret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///q1.db'
 db.init_app(app)
 db.create_all(app=app)
 

@@ -26,30 +26,40 @@ def view():
 
 @app.route("/viewTable",methods =["POST"])  
 def saveDetails():
-	column=[]
 	tablename = request.form["tab"]
 	con = sqlite3.connect(Database)
 	con.row_factory = sqlite3.Row
 	cur = con.cursor()
-	cur.execute("select * from {0}".format(tablename))
-	rows=cur.fetchall()
-	colnames = cur.description
-	for Allcolumns in colnames:
-		column.append(Allcolumns[0])
+	if(tablename=="Steps_Table" or tablename=="Feedback"):	
+		column=[]
+		cur.execute("select * from {0}".format(tablename))
+		rows=cur.fetchall()
+		colnames = cur.description
+		for Allcolumns in colnames:
+			column.append(Allcolumns[0])
 
-	columnlength=len(column)
-	
-	CompleteDet=[]
-	for Allrow in rows:
-		Details=[]
-		for k in range(0,columnlength):
-			Details.append(Allrow[k])
-		CompleteDet.append(Details)
-	print(CompleteDet)
-	if(tablename=="Steps_Table"):
-		return render_template("viewTable.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename) 
+		columnlength=len(column)
+		
+		CompleteDet=[]
+		for Allrow in rows:
+			Details=[]
+			for k in range(0,columnlength):
+				Details.append(Allrow[k])
+			CompleteDet.append(Details)
+		print(CompleteDet)
+
+		if(tablename=="Steps_Table"):
+			return render_template("viewTable.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename) 
+		else:
+			return render_template("viewTable02.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename)
 	else:
-		return render_template("viewTable02.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename)
+		column=[]
+		cur.execute("SELECT Feedback_id,steps,name,olmid,manager,team_name,activity_name,remarks FROM Steps_Table LEFT OUTER JOIN Feedback ON Steps_Table.Feedback_id = Feedback.id")
+		rows=cur.fetchall()
+		colnames = cur.description
+		for Allcolumns in colnames:
+			column.append(Allcolumns[0])
+		return render_template("viewTable03.html",column=column,rows=rows)
 
 
 
