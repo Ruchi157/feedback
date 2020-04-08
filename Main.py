@@ -47,11 +47,8 @@ def saveDetails():
 				Details.append(Allrow[k])
 			CompleteDet.append(Details)
 		print(CompleteDet)
-
-		if(tablename=="Steps_Table"):
-			return render_template("viewTable.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename) 
-		else:
-			return render_template("viewTable02.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename)
+		
+		return render_template("viewTable.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename)
 	else:
 		column=[]
 		cur.execute("SELECT Feedback_id,steps,name,olmid,manager,team_name,activity_name,remarks FROM Steps_Table LEFT OUTER JOIN Feedback ON Steps_Table.Feedback_id = Feedback.id")

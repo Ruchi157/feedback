@@ -20,28 +20,26 @@
     <li class="nav-item">
       <a class="nav-link" href="/">Home</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/view">Database</a>
-    </li>
   </ul>
 
 </nav>
+
 
   <h3 style="margin-top: 10px;  text-align: center"> {{tablename}}</h3>
 <table class="table  table-hover" style="margin-top: 50px">
   <thead>
     <tr>
-      <th>{{ column[0]}} </th>
-      <th>{{ column[1]}} </th>
-      <th>{{ column[2]}} </th>
+      {% for i in column %}
+        <th>{{ i }} </th>
+        {% endfor %}
     </tr>
   </thead>
     <tbody>
        {% for q in CompleteDet %}        
         <tr>
-            <td>{{ q[0] }}</td>
-            <td>{{ q[1] }}</td>
-            <td>{{ q[2] }}</td>
+          {% for q0 in q %}
+            <td>{{ q0 }}</td>
+            {% endfor %}
         </tr>  
       {% endfor %}
     </tbody>
