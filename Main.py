@@ -51,7 +51,7 @@ def saveDetails():
 		
 	else:
 		column=[]
-		cur.execute("SELECT Feedback_id,steps,name,olmid,manager,team_name,activity_name,remarks FROM Steps_Table LEFT OUTER JOIN Feedback ON Steps_Table.Feedback_id = Feedback.id")
+		cur.execute("SELECT Feedback_id,steps,time,name,olmid,manager,team_name,activity_name,remarks FROM Steps_Table LEFT OUTER JOIN Feedback ON Steps_Table.Feedback_id = Feedback.id")
 		rows=cur.fetchall()
 		colnames = cur.description
 		for Allcolumns in colnames:
@@ -67,7 +67,7 @@ def saveDetails():
 			CompleteDet.append(Details)
 		print(CompleteDet)
 
-		return render_template("viewTable.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename)
+	return render_template("viewTable.html",column=column,rows=rows,columnlength=columnlength,CompleteDet=CompleteDet,tablename=tablename)
 
 
 # @app.route("/view02")  

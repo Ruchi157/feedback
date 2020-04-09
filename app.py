@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # app.py
-
+import datetime
 from flask import Flask, render_template,request,flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
+from sqlalchemy import Column, Integer, DateTime
+from sqlalchemy.dialects.mysql import TIME
 from wtforms import Form, FieldList, FormField, IntegerField, StringField, \
         SubmitField
 
@@ -15,7 +17,7 @@ class StepForm(Form):
     it is never used by itself.
     """
     STEPS = StringField('Steps')
-    
+    time = StringField('time')
 
 class MainForm(FlaskForm):
     """Parent form."""
@@ -54,6 +56,7 @@ class Feedback01(db.Model):
     Feedback_id = db.Column(db.Integer, db.ForeignKey('Feedback.id'))
 
     STEPS = db.Column(db.String(100))
+    time = db.Column(db.String(100))
 
     # Relationship
     step02 = db.relationship(

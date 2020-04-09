@@ -191,10 +191,12 @@
 
                 {% for subform in form.step01 %}
                     <div id="feedback01-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
-                   	<label class="control-label col-sm-10" for="remarks" style="padding-top:15px">{{ subform.STEPS.label }}</label>
-      			<div class="col-sm-12">
+                   	<label class="control-label col-sm-10" for="remarks" style="padding-top:15px">{{ subform.STEPS.label }} and {{ subform.time.label }}(hr:min:sec)</label>
+      			<div class="col-sm-10">
 
                         {{ subform.STEPS }}
+                        {{ subform.time}}
+                        
 
                          <a id="add" href="#" style="border: 2px solid red;">Add Steps</a>
                     </div>
@@ -227,11 +229,19 @@
         {% endif %}
 
         {# Form template #}
-        <div class="form-group">
-        <div id="feedback01-_-form" class="is-hidden" data-index="_">
-            <label for="step01-_-STEPS" class="control-label col-sm-10" for="remarks" style="padding-top:15px">New Step</label>
-            <div class="col-sm-10">
+  
+          <div id="feedback01-_-form" class="is-hidden" data-index="_">
+            <div class="form-check-inline">
+
+            <label for="step01-_-STEPS" class="control-label col-sm-1" for="remarks" style="padding-top:15px">New Step</label>
+            <div class="col-sm-6">
             <input id="step01-_-STEPS" class="form-control"  placeholder="Enter New step"name="step01-_-STEPS" type="text" value="">
+            </div>
+
+            <label for="step01-_-time" class="control-label col-sm-1" for="remarks" style="padding-top:15px">time</label>
+            <div class="col-sm-3">
+            <input id="step01-_-time" name="step01-_-time"  class="form-control"  placeholder="hr:min:sec" type="text">
+          </div>
             <a class="remove" href="#">Remove</a>
         </div>
     </div>
