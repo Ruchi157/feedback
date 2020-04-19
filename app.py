@@ -8,7 +8,7 @@ from sqlalchemy import Column, Integer, DateTime
 from sqlalchemy.dialects.mysql import TIME
 from wtforms import Form, FieldList, FormField, IntegerField, StringField, \
         SubmitField
-
+import sqlite3  
 
 class StepForm(Form):
     """Subform.
@@ -43,6 +43,7 @@ class Step01(db.Model):
     team_name = db.Column(db.String(100))
     activity_name = db.Column(db.String(100)) 
     remarks = db.Column(db.String(100))
+    Submittiontime = db.Column(db.String(100))
 
 def __init__(self, name):
    self.name = name
@@ -76,11 +77,13 @@ db.create_all(app=app)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    now = datetime.datetime.now()
+    now=now.strftime("%Y-%m-%d %H:%M:%S")
     form = MainForm()
     MSG=""
     if form.validate_on_submit():
         # Create step02
-        new_step02 = Step01(name=request.form.get("name"),olmid=request.form.get("olmid"),manager=request.form.get("manager"),team_name=request.form.get("team_name"),activity_name=request.form.get("activity_name"),remarks=request.form.get("remarks"))
+        new_step02 = Step01(name=request.form.get("name"),olmid=request.form.get("olmid"),manager=request.form.get("manager"),team_name=request.form.get("team_name"),activity_name=request.form.get("activity_name"),remarks=request.form.get("remarks"),Submittiontime=now)
 
         db.session.add(new_step02)
 
@@ -90,19 +93,37 @@ def index():
             # Add to step02
             new_step02.step01.append(new_feedback01)
 
-        print(request.form)
+        #print(request.form)
 
         db.session.commit()
         MSG=" FEEDBACK SUBMITTED"
     Feedback = Step01.query
     print(Feedback)
 
+    con = sqlite3.connect("q1.db")
+    print("yo")
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    column = []
+    cur.execute("SELECT name,olmid,Submittiontime FROM Feedback")
+    rows = cur.fetchall()
+    print(rows)
+    colnames = cur.description
+    for Allcolumns in colnames:
+        column.append(Allcolumns[0])
+    columnlength =len(column)
+    CompleteDet = []
+    for Allrow in rows:
+        Details = []
+        for k in range(0, columnlength):
+            Details.append(Allrow[k])
+        CompleteDet.append(Details)
+    print(CompleteDet)
     return render_template(
         'index.html',
         form=form,
-        Feedback=Feedback,MSG=MSG
+        Feedback=Feedback,MSG=MSG,column=column,CompleteDet=CompleteDet
     )
-
 
 
 if __name__ == '__main__':
