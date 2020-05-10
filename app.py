@@ -75,7 +75,13 @@ db.init_app(app)
 db.create_all(app=app)
 
 
-@app.route('/', methods=['GET', 'POST'])
+
+
+
+
+
+
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     now = datetime.datetime.now()
     now=now.strftime("%Y-%m-%d %H:%M:%S")
@@ -100,30 +106,41 @@ def index():
     Feedback = Step01.query
     print(Feedback)
 
-    con = sqlite3.connect("q1.db")
-    print("yo")
-    con.row_factory = sqlite3.Row
-    cur = con.cursor()
-    column = []
-    cur.execute("SELECT name,olmid,Submittiontime FROM Feedback")
-    rows = cur.fetchall()
-    print(rows)
-    colnames = cur.description
-    for Allcolumns in colnames:
-        column.append(Allcolumns[0])
-    columnlength =len(column)
-    CompleteDet = []
-    for Allrow in rows:
-        Details = []
-        for k in range(0, columnlength):
-            Details.append(Allrow[k])
-        CompleteDet.append(Details)
-    print(CompleteDet)
+    # con = sqlite3.connect("q1.db")
+    # print("yo")
+    # con.row_factory = sqlite3.Row
+    # cur = con.cursor()
+    # column = []
+    # cur.execute("SELECT name,olmid,Submittiontime FROM Feedback")
+    # rows = cur.fetchall()
+    # print(rows)
+    # colnames = cur.description
+    # for Allcolumns in colnames:
+    #     column.append(Allcolumns[0])
+    # columnlength =len(column)
+    # CompleteDet = []
+    # for Allrow in rows:
+    #     Details = []
+    #     for k in range(0, columnlength):
+    #         Details.append(Allrow[k])
+    #     CompleteDet.append(Details)
+    # print(CompleteDet)
     return render_template(
         'index.html',
         form=form,
-        Feedback=Feedback,MSG=MSG,column=column,CompleteDet=CompleteDet
-    )
+        Feedback=Feedback,MSG=MSG)
+
+
+@app.route("/")
+def viewTable():
+    con = sqlite3.connect("q1.db")
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    cur.execute("select * from Steps_Table LEFT OUTER JOIN Feedback ON Steps_Table.Feedback_id = Feedback.id")
+    rows = cur.fetchall()
+    for i in rows:
+        print(i[0],i[1],i[2])
+    return render_template("Home2.html", rows=rows)
 
 
 if __name__ == '__main__':
