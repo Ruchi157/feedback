@@ -35,35 +35,37 @@
       style="text-align: center; padding-left:inherit; padding-right:inherit; margin-top: 10px;"><b>Submitted
         Feedbacks</b></h6>
 
-  </div> {% for row in rows %}
+  </div> {% for row in list1 %}
   <div class="container" style="margin-top: 20px;">
 
     <div class="card">
       <div class="card-header">
         <div class=" row">
           <div class="col" style="text-align: left;">
-            <h6><b>name : </b>{{row[5]}} </h6>
+            <h6><b>name : </b>{{row[4]}} </h6>
           </div>
           <div class="col" style="text-align: left;">
-            <h6><b> OLM ID : </b>{{row[6]}}</h6>
+            <h6><b> OLM ID : </b>{{row[5]}}</h6>
           </div>
           <div class="col" style="text-align: right;">
-            <h6><b> Submit time : </b>{{row[11]}}</h6>
+            <h6><b> Submit time : </b>{{row[10]}}</h6>
           </div>
         </div>
       </div>
       <div class="card-body">
         <div class=" row">
-          <div class="col" style="text-align: left;">
-            <h6><b>Step : </b>{{row[2]}} </h6>
+          <div class="col" style="text-align: left;">{% for q in row[2] %}
+            <h6><b>Step : </b>{{q}} </h6>
+            {% endfor %}
           </div>
-          <div class="col" style="text-align: right;">
-            <h6><b> Step time : </b>{{row[3]}}</h6>
+          <div class="col" style="text-align: right;">{% for q2 in row[3] %}
+            <h6><b> Step time : </b>{{q2}}</h6>
+            {% endfor %}
           </div>
         </div>
       </div> 
       <div class="card-footer" style="text-align: left;">
-        <h6><b> Remarks : </b>{{row[10]}}</h6>
+        <h6><b> Remarks : </b>{{row[9]}}</h6>
       </div>
     </div>
   </div>
@@ -72,3 +74,4 @@
 </body>
 
 </html>
+
