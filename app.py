@@ -147,6 +147,10 @@ def viewTable():
     df1 = df.groupby('B').agg(list)
     dfM=pd.merge(df1,df2,how="left",on='B')
     list1 = dfM.values.tolist()
+    # L=[]
+    # for i in list1:
+    #     L.append(len(i[2]))
+    # print(L)
     print("----------------Code Executed------------------- -:)")
     return render_template("Home2.html",list1=list1)
 
